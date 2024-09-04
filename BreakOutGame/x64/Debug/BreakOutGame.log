@@ -1,0 +1,7 @@
+﻿  Ball.cpp
+D:\WinAPI_study\BreakOutGame\BreakOutGame\Ball.cpp(5,17): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\WinAPI_study\BreakOutGame\BreakOutGame\Ball.cpp(6,17): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\WinAPI_study\BreakOutGame\BreakOutGame\Ball.cpp(23,18): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\WinAPI_study\BreakOutGame\BreakOutGame\Ball.cpp(24,18): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\WinAPI_study\BreakOutGame\BreakOutGame\Ball.cpp(92,1): warning C4715: 'Ball::OnCollision': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  BreakOutGame.vcxproj -> D:\WinAPI_study\BreakOutGame\x64\Debug\BreakOutGame.exe
