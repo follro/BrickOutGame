@@ -18,8 +18,8 @@ void Ball::Update(Plate& plate)
 	{
 	case STAY:
 		if (!isAlive) initState(plate);
-		realPos.y = plate.pos.y - plate.GetHeight() / 2 - radius;
-		realPos.x = plate.pos.x;
+		realPos.y = plate.GetCenter().y - plate.GetHeight() / 2 - radius;
+		realPos.x = plate.GetCenter().x;
 		pos.x = realPos.x;
 		pos.y = realPos.y;
 		break;
@@ -45,35 +45,28 @@ bool Ball::OnCollision(Object& obj)
 	case PLATE:
 		{
 
-			if ((realPos.y + radius) < (obj.pos.y - obj.GetHeight() / 2)) return false;
+			if ((realPos.y + radius) < (obj.GetCenter().y - obj.GetHeight() / 2)) return false;
 
-			if (realPos.x + radius <= obj.pos.x - obj.GetWidth() / 2
-				|| realPos.x - radius >= obj.pos.x + obj.GetWidth() / 2)
+			if (realPos.x <= obj.GetCenter().x) // object가 오른쪽에있다. ball은 상대적으로 왼쪽
 			{
-				realPos.y = realPos.y - radius - obj.GetHeight()/2;
-				Reflection(obj);
-				return true;
+				if (realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 &&
+					realPos.x + radius < obj.GetCenter().x + obj.GetWidth()/2 )
+				{
+					//충돌처리
+					Reflection(obj);
+					return true;
+				}
 			}
-
-
-			//if (realPos.x <= obj.GetCenter().x) // object가 오른쪽에있다. ball은 상대적으로 왼쪽
-			//{
-			//	if (realPos.x + radius <= obj.GetCenter().x - objHafWidth)
-			//	{
-			//		//충돌처리
-			//		Reflection(obj.GetNomal());
-			//		return true;
-			//	}
-			//}
-			//else
-			//{
-			//	if (realPos.x - radius >= obj.GetCenter().x + objHafWidth)
-			//	{
-			//		//충돌처리
-			//		Reflection(obj.GetNomal());
-			//		return true;
-			//	}
-			//}
+			else
+			{
+				if (realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2 &&
+					realPos.x - radius > obj.GetCenter().x - obj.GetWidth() /2)
+				{
+					//충돌처리
+					Reflection(obj);
+					return true;
+				}
+			}
 			return false;
 		}
 		break;
@@ -103,7 +96,7 @@ void Ball::initState(Plate& plate)
 void Ball::Reflection(Object& obj)
 {
 	realPos.y = obj.GetCenter().y - obj.GetHeight() / 2 - radius;
-	dirVec = {0, -1};
+	dirVec = obj.GetNomal();
 }
 
 

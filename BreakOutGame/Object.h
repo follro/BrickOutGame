@@ -20,8 +20,8 @@ protected:
 	double width;
 	ObjectTag objTag;
 	RECT world;
-public:
 	POINT pos;//ÁßÁ¡
+public:
 	Object() { nomalVec = { 0,0 }; pos = { 0, 0 }; height = 0; width = 0; objTag = OBJ; world = { 0,0,0,0 }; }
 	virtual void Draw(HDC& hdc) = 0;
 	virtual void Update() = 0;

@@ -16,12 +16,12 @@ void Plate::Move(int way)
 	pos.x += way * movingSpeed;
 	if (way > 0)
 	{
-		if (angle > 30) angle -= 15;
+		if (angle > 30) angle -= 5;
 		nomalVec = { std::cos(angle * PI / 180), std::sin(angle * PI / 180) * -1 };
 	}
 	else
 	{
-		if (angle < 150) angle += 15;
+		if (angle < 150) angle += 5;
 
 		nomalVec = {std::cos(angle * PI / 180), std::sin(angle * PI / 180) * -1 };
 	}

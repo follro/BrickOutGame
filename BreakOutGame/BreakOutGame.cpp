@@ -178,8 +178,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         plate.SetWorldView(rectView);
         wall.SetWall(rectView);
         ball.SetWorldView(rectView);
-        ball.SetPlate(plate);
-        ball.SetBallState(1);
         SetTimer(hWnd, TIMER_NOMAL, 5, NULL);
         nomalVec = { 0,1 };
 
@@ -261,7 +259,7 @@ void Update()
     static DWORD oldTime = newTime;
     if (newTime - oldTime < 10)
         return;
-
+    
     oldTime = newTime;
     //oldTime = newTime - ((newTime - oldTime) % 100) ;
 

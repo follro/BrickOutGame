@@ -37,10 +37,7 @@ public:
 	void Reflection(Object& obj );
 	void SetBallState(int newState);
 	int GetBallState() const{ return state; }
-	void SetPlate(Plate plate) {
-		realPos.y = plate.pos.y - plate.GetHeight() / 2 - radius;
-		realPos.x = plate.pos.x;
-	}
+
 };
 
 
