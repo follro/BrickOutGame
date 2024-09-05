@@ -13,8 +13,10 @@ public:
 	}
 	void SetWall(RECT rec)
 	{
+		//width설정다시해야됨
 		width = rec.right;
 		height = rec.bottom;
+		pos = { (rec.right - rec.left) / 2 , (rec.bottom - rec.top) / 2 };
 		objTag = ObjectTag::WALL;
 		rect = rec;
 	}

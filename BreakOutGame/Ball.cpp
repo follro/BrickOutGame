@@ -44,8 +44,8 @@ bool Ball::OnCollision(Object& obj)
 	{
 	case ObjectTag::WALL:
 		{
-			if (realPos.x + radius > obj.GetWidth())			dirVec.x *= -1;
-			else if (realPos.x - radius < 0)					dirVec.x *= -1;
+			if (realPos.x + radius > obj.GetCenter().x + obj.GetWidth()/2)			dirVec.x *= -1;
+			else if (realPos.x - radius < obj.GetCenter().x - obj.GetWidth()/2)					dirVec.x *= -1;
 			else if (realPos.y + radius > obj.GetHeight() )
 			{
 		
@@ -55,16 +55,17 @@ bool Ball::OnCollision(Object& obj)
 		break;
 	case ObjectTag::PLATE:
 		{
-
-			if (!(realPos.y + radius >= obj.GetCenter().y - obj.GetHeight() / 2 &&
-				realPos.y + radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
+			/*if (!(realPos.y + radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
 				realPos.y - radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
-				realPos.y - radius >= obj.GetCenter().y - obj.GetHeight() / 2)) return false;
+				realPos.y + radius >= obj.GetCenter().y - obj.GetHeight() / 2 &&
+				realPos.y - radius >= obj.GetCenter().y - obj.GetHeight() / 2)) return false;*/
 
-			if (realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 &&
-				realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 &&
-				realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2 &&
-				realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2)
+			if (realPos.y + radius <= obj.GetCenter().y - obj.GetHeight() / 2) return false;
+
+			if((realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 ||
+				realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2) &&
+				(realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 ||
+				realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2))
 			{
 				//面倒贸府
 				Reflection(obj);
@@ -81,13 +82,12 @@ bool Ball::OnCollision(Object& obj)
 			realPos.y - radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
 			realPos.y - radius >= obj.GetCenter().y - obj.GetHeight() / 2)) return false;
 
-		if (realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 &&
-			realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 &&
-			realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2 &&
-			realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2)
+		if ((realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 ||
+			realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2) &&
+			(realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 ||
+			realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2))
 		{
 			//面倒贸府
-			obj.OnCollision(*this);
 			Reflection(obj);
 			return true;
 		}

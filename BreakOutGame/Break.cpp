@@ -6,7 +6,6 @@ void Break::Draw(HDC& hdc)
 	switch (type)
 	{
 	case BreakType::RED:
-
 		break;
 	case BreakType::BLUE:
 		break;

@@ -9,8 +9,9 @@
 #include "Plate.h"
 #include "Ball.h"
 #include "Wall.h"
+#include "Break.h"
 #include <list>
-#include <cmath>
+#include <vector>
 #define MAX_LOADSTRING 100
 
 #define TIMER_NOMAL 0
@@ -20,11 +21,23 @@
 
 
 void Update();
-RECT rectView;
+RECT rectView = { 0,0,1200,800 };
 Plate plate;
 Ball ball;
 Wall wall;
 std::list<Object*> obj;
+
+
+std::vector<int> breakTypes=
+{
+    5,5,5,5,5,
+    4,4,4,4,4,
+    3,3,3,3,3,
+    2,2,2,2,2,
+    1,1,1,1,1
+};
+
+void breakMapSetting(std::vector<int> breakTypes, std::list<Object*> obj);
 
 
 // 전역 변수:
@@ -94,8 +107,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     return (int) msg.wParam;
 }
-
-
 
 
 //
@@ -170,7 +181,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
 
     case WM_CREATE:
-        GetClientRect(hWnd, &rectView);
+        //GetClientRect(hWnd, &rectView);
+        
         plate.SetPlateCenter({ rectView.right / 2, rectView.bottom - static_cast<int>(plate.GetHeight()) });
         plate.SetWorldView(rectView);
         wall.SetWall(rectView);
@@ -182,6 +194,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         obj.push_back(&plate);
         obj.push_back(&wall);
 
+        breakMapSetting(breakTypes, obj);
         break;
     case WM_COMMAND:
         {
@@ -261,7 +274,6 @@ void Update()
     oldTime = newTime;
     //oldTime = newTime - ((newTime - oldTime) % 100) ;
 
-
     if (ball.GetBallState() == Ball::BallState::BOUNCE)
     {
         for (Object* a : obj)
@@ -271,6 +283,8 @@ void Update()
     }
 
     ball.Update(plate);
+
+
 
     //비동기 키 (즉각적인 반응이 필요할때 사용)
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
@@ -286,8 +300,28 @@ void Update()
         ball.SetBallState(1);
     }
 
+ 
+
+
 }
-    
+
+void breakMapSetting(std::vector<int> breakTypes, std::list<Object*> obj)
+{
+    int xAdd = 100;
+    int yAdd = 50;
+    int x = rectView.left + xAdd/2, y = rectView.top + yAdd/2;
+
+    for (int i = 1; i <= breakTypes.size();i++)
+    {
+        x += xAdd;
+        if (rectView.right <= x + xAdd)
+        {
+            x = rectView.left + xAdd / 2;
+            y += yAdd;
+        }
+        obj.push_back(new Break({x,y}, breakTypes[i-1]));
+    }
+}
 
 
 
