@@ -36,22 +36,22 @@ void Plate::Move(int way)
 	}
 }
 
-void Plate::ChangeState(int itemState)
+void Plate::ChangeState(ItemState itemState)
 {
 	switch (itemState)
 	{
-	case sNOTHING:
+	case ItemState::NOTHING:
 		width = 200;
 		height = 20;
 		movingSpeed = 20;
 		break;
-	case sLONG:
+	case ItemState::LONG:
 		width *= 2;
 		break;
-	case sSMALL:
+	case ItemState::SMALL:
 		width /= 2;
 		break;
-	case sTRIPLE:
+	case ItemState::TRIPLE:
 		break;
 	default:
 

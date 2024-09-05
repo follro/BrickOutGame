@@ -16,10 +16,7 @@
 #define TIMER_NOMAL 0
 #define RIGHT 1
 #define LEFT -1
-enum ItemState
-{
-    sNOTHING, sLONG, sSMALL, sTRIPLE
-};
+
 
 
 void Update();
@@ -217,8 +214,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            plate.Draw(hdc);
+            wall.Draw(hdc);
             ball.Draw(hdc);
+            plate.Draw(hdc);
 
             EndPaint(hWnd, &ps);
         }
@@ -264,7 +262,7 @@ void Update()
     //oldTime = newTime - ((newTime - oldTime) % 100) ;
 
 
-    if (ball.GetBallState() == 1)
+    if (ball.GetBallState() == Ball::BallState::BOUNCE)
     {
         for (Object* a : obj)
         {

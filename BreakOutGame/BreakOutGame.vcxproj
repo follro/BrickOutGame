@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Break.h" />
     <ClInclude Include="BreakOutGame.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Item.h" />
@@ -139,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Break.cpp" />
     <ClCompile Include="BreakOutGame.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Plate.cpp" />

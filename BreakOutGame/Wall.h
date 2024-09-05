@@ -8,14 +8,14 @@ class Wall : public Object
 public:
 	Wall() : Object() 
 	{
-		objTag = WALL;
+		objTag = ObjectTag::WALL;
 		rect = { 0,0,0,0 };
 	}
 	void SetWall(RECT rec)
 	{
 		width = rec.right;
 		height = rec.bottom;
-		objTag = WALL;
+		objTag = ObjectTag::WALL;
 		rect = rec;
 	}
 	void Draw(HDC& hdc) override;

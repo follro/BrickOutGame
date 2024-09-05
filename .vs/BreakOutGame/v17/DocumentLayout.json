@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "D:\\WinAPI_study\\BreakOutGame2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Ball.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\BreakOutGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\BreakOutGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Ball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Break.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Break.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Plate.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\BreakOutGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\BreakOutGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Break.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Break.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -29,6 +29,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Wall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Wall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|solutionrelative:BreakOutGame\\Ball.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1109D85-21B7-4554-8238-93ADB83CE3D0}|BreakOutGame\\BreakOutGame.vcxproj|D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -46,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 214,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -60,20 +68,20 @@
               "RelativeDocumentMoniker": "BreakOutGame\\Wall.cpp",
               "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Wall.cpp",
               "RelativeToolTip": "BreakOutGame\\Wall.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-03T08:44:47.593Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "BreakOutGame.cpp",
               "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\BreakOutGame.cpp",
               "RelativeDocumentMoniker": "BreakOutGame\\BreakOutGame.cpp",
               "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\BreakOutGame.cpp",
               "RelativeToolTip": "BreakOutGame\\BreakOutGame.cpp",
-              "ViewState": "AQIAAP4AAAAAAAAAAAAgwBgBAAAFAAAA",
+              "ViewState": "AQIAAG8AAAAAAAAAAAAAALQAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-02T05:40:31.243Z",
               "EditorCaption": ""
@@ -86,54 +94,35 @@
               "RelativeDocumentMoniker": "BreakOutGame\\Ball.cpp",
               "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.cpp",
               "RelativeToolTip": "BreakOutGame\\Ball.cpp",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAAAEQAAAAEAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEMAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-03T03:17:15.154Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Plate.cpp",
               "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.cpp",
               "RelativeDocumentMoniker": "BreakOutGame\\Plate.cpp",
               "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.cpp",
               "RelativeToolTip": "BreakOutGame\\Plate.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAEAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-03T11:48:52.577Z",
               "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 186,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Plate.h",
-              "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.h",
-              "RelativeDocumentMoniker": "BreakOutGame\\Plate.h",
-              "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.h",
-              "RelativeToolTip": "BreakOutGame\\Plate.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-09-02T05:45:26.357Z",
-              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Ball.h",
-              "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.h",
-              "RelativeDocumentMoniker": "BreakOutGame\\Ball.h",
-              "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.h",
-              "RelativeToolTip": "BreakOutGame\\Ball.h",
-              "ViewState": "AQIAAA8AAAAAAAAAAIAwwBsAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-09-02T08:35:12.169Z",
+              "DocumentIndex": 2,
+              "Title": "Break.cpp",
+              "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Break.cpp",
+              "RelativeDocumentMoniker": "BreakOutGame\\Break.cpp",
+              "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Break.cpp",
+              "RelativeToolTip": "BreakOutGame\\Break.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-05T01:46:15.831Z",
               "EditorCaption": ""
             },
             {
@@ -148,31 +137,78 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-04T08:27:38.715Z",
               "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 186,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Plate.h",
+              "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.h",
+              "RelativeDocumentMoniker": "BreakOutGame\\Plate.h",
+              "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Plate.h",
+              "RelativeToolTip": "BreakOutGame\\Plate.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-02T05:45:26.357Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "Break.h",
+              "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Break.h",
+              "RelativeDocumentMoniker": "BreakOutGame\\Break.h",
+              "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Break.h",
+              "RelativeToolTip": "BreakOutGame\\Break.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-05T01:43:07.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Ball.h",
+              "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.h",
+              "RelativeDocumentMoniker": "BreakOutGame\\Ball.h",
+              "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Ball.h",
+              "RelativeToolTip": "BreakOutGame\\Ball.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-02T08:35:12.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Object.h",
               "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Object.h",
               "RelativeDocumentMoniker": "BreakOutGame\\Object.h",
               "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Object.h",
               "RelativeToolTip": "BreakOutGame\\Object.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAPAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-09-02T09:51:38.319Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "Wall.h",
               "DocumentMoniker": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Wall.h",
               "RelativeDocumentMoniker": "BreakOutGame\\Wall.h",
               "ToolTip": "D:\\WinAPI_study\\BreakOutGame2\\BreakOutGame\\Wall.h",
               "RelativeToolTip": "BreakOutGame\\Wall.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAQAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-09-03T08:44:57.985Z"
+              "WhenOpened": "2024-09-03T08:44:57.985Z",
+              "EditorCaption": ""
             }
           ]
         }

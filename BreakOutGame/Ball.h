@@ -6,10 +6,12 @@
 
 class Ball : public Object
 {
-	enum BallState
+public:
+	enum class BallState
 	{
 		STAY, BOUNCE
 	};
+private:
 	MyVector realPos;
 	MyVector dirVec;
 	double angle;
@@ -25,8 +27,8 @@ public:
 		angle = 0;
 		speed = 10;
 		radius = 10;
-		state = STAY;
-		objTag = BALL;
+		state = BallState::STAY;
+		objTag = ObjectTag::BALL;
 		isAlive = true;
 	}
 	void Draw(HDC& hdc) override;
@@ -36,9 +38,8 @@ public:
 	void initState(Plate& plate);
 	void Reflection(Object& obj );
 	void SetBallState(int newState);
-	int GetBallState() const{ return state; }
-
+	BallState GetBallState() const{ return state; }
 };
 
-
+ 
 #endif

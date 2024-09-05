@@ -4,10 +4,12 @@
 #include <cmath>
 class Plate : public Object
 {
-	enum ItemState
+public:
+	enum class ItemState
 	{
-		sNOTHING,sLONG, sSMALL, sTRIPLE
+		NOTHING,LONG, SMALL, TRIPLE
 	};
+private:
 	double movingSpeed;
 	ItemState plateState;
 	double PI;
@@ -17,11 +19,11 @@ public:
 	{ 
 		movingSpeed = 15;
 		width = 200;
-		height = 40; 
+		height = 30; 
 		pos = { 0, 0 }; 
-		plateState = sNOTHING;
-		objTag = PLATE;
-		nomalVec = { 0,1 };
+		plateState = ItemState::NOTHING;
+		objTag = ObjectTag::PLATE;
+		nomalVec = { 0,-1 };
 		PI = std::acos(-1);
 	}
 
@@ -30,7 +32,7 @@ public:
 	void Draw(HDC& hdc) override;
 	void Update() override;
 	void Move(int way);
-	void ChangeState(int itemState);
+	void ChangeState(ItemState itemState);
 
 };
 

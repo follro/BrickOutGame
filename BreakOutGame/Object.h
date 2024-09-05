@@ -11,9 +11,9 @@ struct MyVector
 class Object
 {
 protected:
-	enum ObjectTag
+	enum class ObjectTag
 	{
-		OBJ,WALL, PLATE, BREAK, BALL
+		OBJ, WALL, PLATE, BREAK, BALL
 	};
 	MyVector nomalVec;
 	double height;
@@ -22,7 +22,8 @@ protected:
 	RECT world;
 	POINT pos;//ÁßÁ¡
 public:
-	Object() { nomalVec = { 0,0 }; pos = { 0, 0 }; height = 0; width = 0; objTag = OBJ; world = { 0,0,0,0 }; }
+	Object() { nomalVec = { 0,0 }; pos = { 0, 0 }; height = 0; width = 0; 
+	objTag = ObjectTag::OBJ; world = { 0,0,0,0 }; }
 	virtual void Draw(HDC& hdc) = 0;
 	virtual void Update() = 0;
 	virtual bool OnCollision(Object& obj);
