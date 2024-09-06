@@ -15,21 +15,22 @@ private:
 	double PI;
 	double angle = 90;
 public:
-	Plate()
+	Plate(POINT _pos)
 	{ 
 		movingSpeed = 15;
 		width = 200;
-		height = 30; 
-		pos = { 0, 0 }; 
+		height = 30;
+		pos = _pos;
 		plateState = ItemState::NOTHING;
 		objTag = ObjectTag::PLATE;
 		nomalVec = { 0,-1 };
 		PI = std::acos(-1);
+		SetVertex();
 	}
 
 	void SetPlateCenter(POINT center) { pos = center; }
 	
-	void Draw(HDC& hdc) override;
+	void Draw(HDC& hdc, HBRUSH& hBrush, HBRUSH& oldBrush) override;
 	void Update() override;
 	void Move(int way);
 	void ChangeState(ItemState itemState);

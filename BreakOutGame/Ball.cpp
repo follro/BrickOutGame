@@ -1,6 +1,7 @@
 #include "Ball.h"
+#include "Break.h"
 
-void Ball::Draw(HDC& hdc)
+void Ball::Draw(HDC& hdc, HBRUSH & hBrush, HBRUSH & oldBrush)
 {
 	pos.x = realPos.x;
 	pos.y = realPos.y;
@@ -12,7 +13,7 @@ void Ball::Update()
 	
 }
 
-void Ball::Update(Plate& plate)
+void Ball::Update(Object& plate)
 {
 	switch (state)
 	{
@@ -40,6 +41,7 @@ void Ball::Update(Plate& plate)
 
 bool Ball::OnCollision(Object& obj)
 {
+	bool isCollision = false;
 	switch (obj.GetTag())
 	{
 	case ObjectTag::WALL:
@@ -77,27 +79,47 @@ bool Ball::OnCollision(Object& obj)
 		
 	case ObjectTag::BREAK:
 		{
-		if (!(realPos.y + radius >= obj.GetCenter().y - obj.GetHeight() / 2 &&
-			realPos.y + radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
-			realPos.y - radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
-			realPos.y - radius >= obj.GetCenter().y - obj.GetHeight() / 2)) return false;
+			//if (!(realPos.y + radius >= obj.GetCenter().y - obj.GetHeight() / 2 &&
+			//	realPos.y + radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
+			//	realPos.y - radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
+			//	realPos.y - radius >= obj.GetCenter().y - obj.GetHeight() / 2)) return false;
 
-		if ((realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 ||
-			realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2) &&
-			(realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 ||
-			realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2))
-		{
-			//충돌처리
-			Reflection(obj);
-			return true;
+			//if ((realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 ||
+			//	realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2) &&
+			//	(realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 ||
+			//	realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2))
+			//{
+			//	//충돌처리
+			//	Reflection(obj);
+			//	return true;
+			//}
+
+			if (obj.GetVertex()[0].x <= realPos.x && obj.GetVertex()[1].x >= realPos.x)
+			{
+				if (obj.GetVertex()[0].y - radius >= realPos.y && obj.GetVertex()[0].y <= realPos.y) isCollision = true;
+				if (obj.GetVertex()[3].y + radius <= realPos.y && obj.GetVertex()[3].y >= realPos.y) isCollision = true;
+			}
+			else if (obj.GetVertex()[0].x - radius <= realPos.x && obj.GetVertex()[0].x >= realPos.x)
+			{
+				if (obj.GetVertex()[0].y - radius >= realPos.y && obj.GetVertex()[0].y <= realPos.y) isCollision = true;
+				if (obj.GetVertex()[3].y + radius <= realPos.y && obj.GetVertex()[3].y >= realPos.y) isCollision = true;
+			}
+			else if (obj.GetVertex()[1].x + radius >= realPos.x && obj.GetVertex()[1].x <= realPos.x)
+			{
+				if (obj.GetVertex()[0].y - radius >= realPos.y && obj.GetVertex()[0].y <= realPos.y) isCollision = true;
+				if (obj.GetVertex()[3].y + radius <= realPos.y && obj.GetVertex()[3].y >= realPos.y) isCollision = true;
+			}
+			//모서리 처리(각 점 위치에서 radius거리 안에 있으면 충돌~
+			else
+			{
+
+			}
 		}
-		
-		}
-		break;
+			break;
 	}
 }
 
-void Ball::initState(Plate& plate)
+void Ball::initState(Object& plate)
 {
 	dirVec = { 0,-1 };
 	angle = 90;
@@ -109,13 +131,23 @@ void Ball::initState(Plate& plate)
 void Ball::Reflection(Object& obj)
 {
 	//realPos.y = obj.GetCenter().y - obj.GetHeight() / 2 - radius;
-	dirVec = obj.GetNomal();
+
+	if (obj.GetTag() == ObjectTag::PLATE)	dirVec = obj.GetNomal();
+	else if(obj.GetTag() == ObjectTag::BREAK)
+	{
+		if (realPos.x + radius > obj.GetCenter().x + obj.GetWidth() / 2)			dirVec.x *= -1;
+		else if (realPos.x - radius < obj.GetCenter().x - obj.GetWidth() / 2)		dirVec.x *= -1;
+		else if (realPos.y + radius > obj.GetHeight())								dirVec.y *= -1;
+		else if (realPos.y - radius < 0)											dirVec.y *= -1;
+		obj.OnCollision(obj);
+	}
+
 }
 
 
-void Ball::SetBallState(int newState)
+void Ball::SetBallState(BallState newState)
 {
-	state = (BallState)newState;
+	state = newState;
 }
 
 

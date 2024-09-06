@@ -13,19 +13,20 @@ private:
 	int brokenCount;
 	BreakType type;
 public:
-	Break(POINT newPos, int _brokenCount) : Object(), brokenCount(_brokenCount)
+	Break(POINT newPos, int _brokenCount) : Object()
 	{
 		width = 100;
 		height = 50;
 		pos = newPos;
 		objTag = ObjectTag::BREAK;
-		SetBreakType();
+		SetBreakType(_brokenCount);
+		SetVertex();
 	}
-	// Object을(를) 통해 상속됨
-	void Draw(HDC& hdc) override;
+
+	void Draw(HDC& hdc, HBRUSH& hBrush, HBRUSH& oldBrush) override;
 	void Update() override;
 	bool OnCollision(Object& obj) override;
-	void SetBreakType();
+	void SetBreakType(int brokenCount);
 	int GetbrokenCount() const { return brokenCount; }
 };
 

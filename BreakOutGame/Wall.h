@@ -6,10 +6,13 @@ class Wall : public Object
 {
 	RECT rect;
 public:
-	Wall() : Object() 
+	Wall(RECT rec) : Object() 
 	{
+		width = rec.right;
+		height = rec.bottom;
+		pos = { (rec.right - rec.left) / 2 , (rec.bottom - rec.top) / 2 };
 		objTag = ObjectTag::WALL;
-		rect = { 0,0,0,0 };
+		rect = rec;
 	}
 	void SetWall(RECT rec)
 	{
@@ -20,7 +23,7 @@ public:
 		objTag = ObjectTag::WALL;
 		rect = rec;
 	}
-	void Draw(HDC& hdc) override;
+	void Draw(HDC& hdc, HBRUSH& hBrush, HBRUSH& oldBrush) override;
 	void Update() override;
 	RECT GetRect() const { return rect; }
 };

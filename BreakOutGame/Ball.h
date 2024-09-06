@@ -31,13 +31,13 @@ public:
 		objTag = ObjectTag::BALL;
 		isAlive = true;
 	}
-	void Draw(HDC& hdc) override;
+	void Draw(HDC& hdc, HBRUSH& hBrush, HBRUSH& oldBrush) override;
 	void Update() override;
-	void Update(Plate& plate);
+	void Update(Object& obj);
 	bool OnCollision(Object& obj) override;
-	void initState(Plate& plate);
+	void initState(Object& obj);
 	void Reflection(Object& obj );
-	void SetBallState(int newState);
+	void SetBallState(BallState newState);
 	BallState GetBallState() const{ return state; }
 };
 

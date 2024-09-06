@@ -21,10 +21,11 @@ protected:
 	ObjectTag objTag;
 	RECT world;
 	POINT pos;//ÁßÁ¡
+	POINT vertex[4];
 public:
 	Object() { nomalVec = { 0,0 }; pos = { 0, 0 }; height = 0; width = 0; 
 	objTag = ObjectTag::OBJ; world = { 0,0,0,0 }; }
-	virtual void Draw(HDC& hdc) = 0;
+	virtual void Draw(HDC& hdc, HBRUSH & hBrush, HBRUSH & oldBrush) = 0;
 	virtual void Update() = 0;
 	virtual bool OnCollision(Object& obj);
 	POINT GetCenter() const { return pos; }
@@ -33,5 +34,7 @@ public:
 	MyVector GetNomal() const { return nomalVec; }
 	ObjectTag GetTag() const { return objTag; }
 	void SetWorldView(RECT rec) { world = rec; }
+	void SetVertex();
+	POINT* GetVertex() { return vertex; }
 };
 #endif // !OBJECT_H_

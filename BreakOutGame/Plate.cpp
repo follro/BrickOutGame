@@ -1,12 +1,11 @@
 #include "Plate.h"
 
-void Plate::Draw(HDC& hdc)
+void Plate::Draw(HDC& hdc, HBRUSH & hBrush, HBRUSH & oldBrush)
 {
-	POINT vertex[4] = { {pos.x - width / 2, pos.y - height / 2 },
+	/*POINT vertex[4] = { {pos.x - width / 2, pos.y - height / 2 },
 						{pos.x + width / 2, pos.y - height / 2 },
 						{pos.x + width / 2, pos.y + height / 2 },
-						{pos.x - width / 2, pos.y + height / 2} };
-
+						{pos.x - width / 2, pos.y + height / 2} };*/
 	Polygon(hdc, vertex, 4);
 }
 
@@ -34,6 +33,8 @@ void Plate::Move(int way)
 	{
 		pos.x += -1 * way * movingSpeed;
 	}
+
+	SetVertex();
 }
 
 void Plate::ChangeState(ItemState itemState)
@@ -63,6 +64,6 @@ void Plate::ChangeState(ItemState itemState)
 
 void Plate::Update()
 {
-
+	
 }
 

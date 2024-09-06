@@ -13,31 +13,35 @@
 #include <list>
 #include <vector>
 #define MAX_LOADSTRING 100
-
+#define PLAET_HEIGHT 30
 #define TIMER_NOMAL 0
 #define RIGHT 1
 #define LEFT -1
 
 
-
+enum class OBJType
+{
+    WALL, PLATE, BALL
+};
 void Update();
 RECT rectView = { 0,0,1200,800 };
-Plate plate;
-Ball ball;
-Wall wall;
-std::list<Object*> obj;
+
+//Plate* plate;
+//Ball* ball;
+//Wall* wall;
+std::vector<Object*> obj;
 
 
 std::vector<int> breakTypes=
 {
-    5,5,5,5,5,
-    4,4,4,4,4,
-    3,3,3,3,3,
-    2,2,2,2,2,
-    1,1,1,1,1
+    5,5,5,5,5,5,5,5,5,5,5,5,
+    4,4,4,4,4,4,4,4,4,4,4,4,
+    3,3,3,3,3,3,3,3,3,3,3,3,
+    2,2,2,2,2,2,2,2,2,2,2,2,
+    1,1,1,1,1,1,1,1,1,1,1,1
 };
 
-void breakMapSetting(std::vector<int> breakTypes, std::list<Object*> obj);
+void breakMapSetting(std::vector<int> breakTypes, std::vector<Object*> &obj);
 
 
 // 전역 변수:
@@ -177,24 +181,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     
     static MyVector nomalVec;
+    HBRUSH hBrush, oldBrush;
     switch (message)
     {
 
     case WM_CREATE:
         //GetClientRect(hWnd, &rectView);
         
-        plate.SetPlateCenter({ rectView.right / 2, rectView.bottom - static_cast<int>(plate.GetHeight()) });
-        plate.SetWorldView(rectView);
-        wall.SetWall(rectView);
-        ball.SetWorldView(rectView);
+        obj.push_back (new Wall(rectView));
+        obj.push_back(new Plate({ rectView.right / 2,  rectView.bottom - PLAET_HEIGHT }));
+        obj.push_back(new Ball());
+        obj[(int)OBJType::PLATE]->SetWorldView(rectView);
+        obj[(int)OBJType::BALL]->SetWorldView(rectView); 
+        //plate->SetWorldView(rectView);
+        //ball->SetWorldView(rectView);
+
+        breakMapSetting(breakTypes,obj);
+
+        //wall.SetWall(rectView);
+        //plate->SetPlateCenter({ rectView.right / 2, rectView.bottom - static_cast<int>(plate->GetHeight()) });
         SetTimer(hWnd, TIMER_NOMAL, 5, NULL);
         nomalVec = { 0,1 };
 
-        obj.push_back(&ball);
-        obj.push_back(&plate);
-        obj.push_back(&wall);
-
-        breakMapSetting(breakTypes, obj);
         break;
     case WM_COMMAND:
         {
@@ -227,14 +235,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            wall.Draw(hdc);
+            /*wall.Draw(hdc);
             ball.Draw(hdc);
-            plate.Draw(hdc);
+            plate.Draw(hdc);*/
+
+            for (Object* ob : obj)
+            {
+                ob->Draw(hdc, hBrush, oldBrush);
+            }
 
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
+        for (std::vector<Object*>::iterator iter = obj.begin();
+            iter != obj.end();)
+        {
+            //Object* delObj = *iter;
+            delete(*iter);
+            iter = obj.erase(iter);
+        }
+        //obj.clear();
         KillTimer(hWnd, TIMER_NOMAL);
         PostQuitMessage(0);
         break;
@@ -274,38 +295,37 @@ void Update()
     oldTime = newTime;
     //oldTime = newTime - ((newTime - oldTime) % 100) ;
 
-    if (ball.GetBallState() == Ball::BallState::BOUNCE)
+    if ( dynamic_cast<Ball*>(obj[(int)OBJType::BALL]) -> GetBallState() == Ball::BallState::BOUNCE)
     {
         for (Object* a : obj)
         {
-            ball.OnCollision(*a);
+            dynamic_cast<Ball*>(obj[(int)OBJType::BALL])->OnCollision(*a);
         }
     }
 
-    ball.Update(plate);
+    dynamic_cast<Ball*>(obj[(int)OBJType::BALL])->Update(*obj[(int)OBJType::PLATE]);
 
 
 
     //비동기 키 (즉각적인 반응이 필요할때 사용)
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
     {
-        plate.Move(LEFT);
+        dynamic_cast<Plate*>(obj[(int)OBJType::PLATE])->Move(LEFT);
+        //plate.Move(LEFT);
     }
     else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
     {
-        plate.Move(RIGHT);
+        dynamic_cast<Plate*>(obj[(int)OBJType::PLATE])->Move(RIGHT);
+        //plate.Move(RIGHT);
     }
     else if (GetAsyncKeyState(VK_SPACE) & 0x8000)
     {
-        ball.SetBallState(1);
+        dynamic_cast<Ball*>(obj[(int)OBJType::BALL])->SetBallState(Ball::BallState::BOUNCE);
+        //ball.SetBallState(1);
     }
-
- 
-
-
 }
 
-void breakMapSetting(std::vector<int> breakTypes, std::list<Object*> obj)
+void breakMapSetting(std::vector<int> breakTypes, std::vector<Object*> &obj)
 {
     int xAdd = 100;
     int yAdd = 50;
@@ -313,13 +333,13 @@ void breakMapSetting(std::vector<int> breakTypes, std::list<Object*> obj)
 
     for (int i = 1; i <= breakTypes.size();i++)
     {
-        x += xAdd;
-        if (rectView.right <= x + xAdd)
+        if (rectView.right <= x )
         {
             x = rectView.left + xAdd / 2;
             y += yAdd;
         }
         obj.push_back(new Break({x,y}, breakTypes[i-1]));
+        x += xAdd;
     }
 }
 
