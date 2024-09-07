@@ -26,23 +26,30 @@ enum class OBJType
 void Update();
 RECT rectView = { 0,0,1200,800 };
 
-//Plate* plate;
-//Ball* ball;
+Plate* plate;
+Ball* ball;
 //Wall* wall;
 std::vector<Object*> obj;
 
 
+HDC hdc;
+HDC hMemDC;
+HBITMAP hBitmap;
+HBITMAP hOldBitmap;
+
 std::vector<int> breakTypes=
 {
-    5,5,5,5,5,5,5,5,5,5,5,5,
-    4,4,4,4,4,4,4,4,4,4,4,4,
-    3,3,3,3,3,3,3,3,3,3,3,3,
-    2,2,2,2,2,2,2,2,2,2,2,2,
-    1,1,1,1,1,1,1,1,1,1,1,1
+    0,0,0,0,0,0,0,0,0,0,0,0,
+    0,5,5,5,5,5,5,5,5,5,5,0,
+    0,4,4,4,4,4,4,4,4,4,4,0,
+    0,3,3,3,3,3,3,3,3,3,3,0,
+    0,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,0
 };
 
-void breakMapSetting(std::vector<int> breakTypes, std::vector<Object*> &obj);
-
+void BreakMapSetting(std::vector<int> breakTypes, std::vector<Object*> &obj);
+void CreateDoubleBuffer(HWND hWnd);
+void DeleteDoubleBuffer(HWND hWnd);
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -182,21 +189,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     
     static MyVector nomalVec;
     HBRUSH hBrush, oldBrush;
+   
     switch (message)
     {
 
     case WM_CREATE:
         //GetClientRect(hWnd, &rectView);
-        
         obj.push_back (new Wall(rectView));
         obj.push_back(new Plate({ rectView.right / 2,  rectView.bottom - PLAET_HEIGHT }));
         obj.push_back(new Ball());
         obj[(int)OBJType::PLATE]->SetWorldView(rectView);
         obj[(int)OBJType::BALL]->SetWorldView(rectView); 
+
+        ball = dynamic_cast<Ball*>(obj[(int)OBJType::BALL]);
+        plate = dynamic_cast<Plate*>(obj[(int)OBJType::PLATE]);
+
         //plate->SetWorldView(rectView);
         //ball->SetWorldView(rectView);
 
-        breakMapSetting(breakTypes,obj);
+        BreakMapSetting(breakTypes,obj);
 
         //wall.SetWall(rectView);
         //plate->SetPlateCenter({ rectView.right / 2, rectView.bottom - static_cast<int>(plate->GetHeight()) });
@@ -233,21 +244,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
+            hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            /*wall.Draw(hdc);
-            ball.Draw(hdc);
-            plate.Draw(hdc);*/
-
+            
+            CreateDoubleBuffer(hWnd);
             for (Object* ob : obj)
             {
                 ob->Draw(hdc, hBrush, oldBrush);
             }
+            DeleteDoubleBuffer(hWnd);
 
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
+        ball = NULL;
+        plate = NULL;
         for (std::vector<Object*>::iterator iter = obj.begin();
             iter != obj.end();)
         {
@@ -293,39 +305,48 @@ void Update()
         return;
     
     oldTime = newTime;
-    //oldTime = newTime - ((newTime - oldTime) % 100) ;
 
-    if ( dynamic_cast<Ball*>(obj[(int)OBJType::BALL]) -> GetBallState() == Ball::BallState::BOUNCE)
+    /*if ( dynamic_cast<Ball*>(obj[(int)OBJType::BALL]) -> GetBallState() == Ball::BallState::BOUNCE)
     {
         for (Object* a : obj)
         {
             dynamic_cast<Ball*>(obj[(int)OBJType::BALL])->OnCollision(*a);
         }
+       
     }
 
-    dynamic_cast<Ball*>(obj[(int)OBJType::BALL])->Update(*obj[(int)OBJType::PLATE]);
+    dynamic_cast<Ball*>(obj[(int)OBJType::BALL])->Update(*obj[(int)OBJType::PLATE]);*/
 
+    if (ball-> GetBallState() == Ball::BallState::BOUNCE)
+    {
+        for (Object* a : obj)
+        {
+            ball->OnCollision(*a);
+        }
+        ball->ResetOverLapCollision();
+    }
+    ball->Update(*obj[(int)OBJType::PLATE]);
 
 
     //비동기 키 (즉각적인 반응이 필요할때 사용)
     if (GetAsyncKeyState(VK_LEFT) & 0x8000)
     {
-        dynamic_cast<Plate*>(obj[(int)OBJType::PLATE])->Move(LEFT);
+        plate->Move(LEFT);
         //plate.Move(LEFT);
     }
     else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
     {
-        dynamic_cast<Plate*>(obj[(int)OBJType::PLATE])->Move(RIGHT);
+       plate->Move(RIGHT);
         //plate.Move(RIGHT);
     }
     else if (GetAsyncKeyState(VK_SPACE) & 0x8000)
     {
-        dynamic_cast<Ball*>(obj[(int)OBJType::BALL])->SetBallState(Ball::BallState::BOUNCE);
+        ball->SetBallState(Ball::BallState::BOUNCE);
         //ball.SetBallState(1);
     }
 }
 
-void breakMapSetting(std::vector<int> breakTypes, std::vector<Object*> &obj)
+void BreakMapSetting(std::vector<int> breakTypes, std::vector<Object*> &obj)
 {
     int xAdd = 100;
     int yAdd = 50;
@@ -341,6 +362,19 @@ void breakMapSetting(std::vector<int> breakTypes, std::vector<Object*> &obj)
         obj.push_back(new Break({x,y}, breakTypes[i-1]));
         x += xAdd;
     }
+}
+
+void CreateDoubleBuffer(HWND hWnd)
+{
+    hMemDC = CreateCompatibleDC(hdc);
+    hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
+    BitBlt(hdc, 0, 0, rectView.right, rectView.bottom, hMemDC, 0, 0, SRCCOPY);
+}
+
+void DeleteDoubleBuffer(HWND hWnd)
+{
+    SelectObject(hMemDC, hOldBitmap);
+    DeleteDC(hMemDC); 
 }
 
 

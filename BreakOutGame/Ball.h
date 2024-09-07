@@ -19,6 +19,7 @@ private:
 	double radius;
 	BallState state;
 	BOOL isAlive;
+	BOOL isOverlapCollision;
 public:
 	Ball() : Object()
 	{
@@ -30,6 +31,7 @@ public:
 		state = BallState::STAY;
 		objTag = ObjectTag::BALL;
 		isAlive = true;
+		isOverlapCollision = false;
 	}
 	void Draw(HDC& hdc, HBRUSH& hBrush, HBRUSH& oldBrush) override;
 	void Update() override;
@@ -39,6 +41,7 @@ public:
 	void Reflection(Object& obj );
 	void SetBallState(BallState newState);
 	BallState GetBallState() const{ return state; }
+	void ResetOverLapCollision() { isOverlapCollision = false; }
 };
 
  

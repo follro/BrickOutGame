@@ -1,5 +1,7 @@
+#include <cmath>
 #include "Ball.h"
 #include "Break.h"
+#define VERTEXNUM 4
 
 void Ball::Draw(HDC& hdc, HBRUSH & hBrush, HBRUSH & oldBrush)
 {
@@ -47,7 +49,7 @@ bool Ball::OnCollision(Object& obj)
 	case ObjectTag::WALL:
 		{
 			if (realPos.x + radius > obj.GetCenter().x + obj.GetWidth()/2)			dirVec.x *= -1;
-			else if (realPos.x - radius < obj.GetCenter().x - obj.GetWidth()/2)					dirVec.x *= -1;
+			else if (realPos.x - radius < obj.GetCenter().x - obj.GetWidth()/2)		dirVec.x *= -1;
 			else if (realPos.y + radius > obj.GetHeight() )
 			{
 		
@@ -57,66 +59,95 @@ bool Ball::OnCollision(Object& obj)
 		break;
 	case ObjectTag::PLATE:
 		{
-			/*if (!(realPos.y + radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
-				realPos.y - radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
-				realPos.y + radius >= obj.GetCenter().y - obj.GetHeight() / 2 &&
-				realPos.y - radius >= obj.GetCenter().y - obj.GetHeight() / 2)) return false;*/
-
-			if (realPos.y + radius <= obj.GetCenter().y - obj.GetHeight() / 2) return false;
-
-			if((realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 ||
-				realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2) &&
-				(realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 ||
-				realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2))
+			//상하좌우 충돌처리 -> 해야될 것 : 방향벡터가 1 1 이 되서 가속이 붙음 정규화 과정이 필요
+			if (obj.GetVertex()[0].x <= realPos.x && obj.GetVertex()[1].x >= realPos.x)
 			{
-				//충돌처리
-				Reflection(obj);
-				return true;
+				if (obj.GetVertex()[0].y - radius <= realPos.y && obj.GetVertex()[0].y >= realPos.y) { isCollision = true; }
+				if (obj.GetVertex()[3].y + radius >= realPos.y && obj.GetVertex()[3].y <= realPos.y) { isCollision = true; }
+				if (isCollision) { dirVec = obj.GetNomal(); }
 			}
-			
-			return false;
-		}
-		
-	case ObjectTag::BREAK:
-		{
-			//if (!(realPos.y + radius >= obj.GetCenter().y - obj.GetHeight() / 2 &&
-			//	realPos.y + radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
-			//	realPos.y - radius <= obj.GetCenter().y + obj.GetHeight() / 2 &&
-			//	realPos.y - radius >= obj.GetCenter().y - obj.GetHeight() / 2)) return false;
+			else if (obj.GetVertex()[0].y <= realPos.y && obj.GetVertex()[3].y >= realPos.y)
+			{
+				if (obj.GetVertex()[0].x - radius <= realPos.x && obj.GetVertex()[0].x >= realPos.x) { isCollision = true; }
+				if (obj.GetVertex()[1].x + radius >= realPos.x && obj.GetVertex()[1].x <= realPos.x) { isCollision = true; }
+				if (isCollision){ dirVec.x *= -1; }
+			}
+			//모서리 처리 각 점(4개) 위치에서 radius거리 안에 있으면 충돌~
+			else
+			{
+				double len;
+				for (int i = 0; i < VERTEXNUM; i++)
+				{
+					len = sqrt(pow((obj.GetVertex()[i].x - realPos.x), 2) + pow((obj.GetVertex()[i].y - realPos.y), 2));
+					if (radius >= len) { isCollision = true; }
+					if (isCollision && !isOverlapCollision)
+					{
+						isOverlapCollision = true;
+						dirVec.x *= -1; dirVec.y *= -1;
+						break;
+					}
+				}
+			}
 
-			//if ((realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 ||
+			//
+			//if (realPos.y + radius <= obj.GetCenter().y - obj.GetHeight() / 2) return isCollision;
+
+			//if((realPos.x + radius <= obj.GetCenter().x + obj.GetWidth() / 2 ||
 			//	realPos.x - radius <= obj.GetCenter().x + obj.GetWidth() / 2) &&
 			//	(realPos.x + radius >= obj.GetCenter().x - obj.GetWidth() / 2 ||
 			//	realPos.x - radius >= obj.GetCenter().x - obj.GetWidth() / 2))
 			//{
 			//	//충돌처리
-			//	Reflection(obj);
-			//	return true;
+			//	isCollision = true;
+			//	dirVec = obj.GetNomal();
 			//}
-
+		}
+		break;
+	case ObjectTag::BREAK:
+		{
+			//상하좌우 충돌처리 -> 해야될 것 : 방향벡터가 1 1 이 되서 가속이 붙음 정규화 과정이 필요
 			if (obj.GetVertex()[0].x <= realPos.x && obj.GetVertex()[1].x >= realPos.x)
 			{
-				if (obj.GetVertex()[0].y - radius >= realPos.y && obj.GetVertex()[0].y <= realPos.y) isCollision = true;
-				if (obj.GetVertex()[3].y + radius <= realPos.y && obj.GetVertex()[3].y >= realPos.y) isCollision = true;
+				if (obj.GetVertex()[0].y - radius <= realPos.y && obj.GetVertex()[0].y >= realPos.y) { isCollision = true; }
+				if (obj.GetVertex()[3].y + radius >= realPos.y && obj.GetVertex()[3].y <= realPos.y) { isCollision = true; }
+				if (isCollision && !isOverlapCollision)
+				{
+					isOverlapCollision = true;
+					dirVec.y *= -1;
+				}
 			}
-			else if (obj.GetVertex()[0].x - radius <= realPos.x && obj.GetVertex()[0].x >= realPos.x)
+			else if (obj.GetVertex()[0].y <= realPos.y && obj.GetVertex()[3].y >= realPos.y)
 			{
-				if (obj.GetVertex()[0].y - radius >= realPos.y && obj.GetVertex()[0].y <= realPos.y) isCollision = true;
-				if (obj.GetVertex()[3].y + radius <= realPos.y && obj.GetVertex()[3].y >= realPos.y) isCollision = true;
+				if (obj.GetVertex()[0].x - radius <= realPos.x && obj.GetVertex()[0].x >= realPos.x) { isCollision = true; }
+				if (obj.GetVertex()[1].x + radius >= realPos.x && obj.GetVertex()[1].x <= realPos.x) { isCollision = true; }
+				if (isCollision && !isOverlapCollision)
+				{
+					isOverlapCollision = true;
+					dirVec.x *= -1;
+				}
 			}
-			else if (obj.GetVertex()[1].x + radius >= realPos.x && obj.GetVertex()[1].x <= realPos.x)
-			{
-				if (obj.GetVertex()[0].y - radius >= realPos.y && obj.GetVertex()[0].y <= realPos.y) isCollision = true;
-				if (obj.GetVertex()[3].y + radius <= realPos.y && obj.GetVertex()[3].y >= realPos.y) isCollision = true;
-			}
-			//모서리 처리(각 점 위치에서 radius거리 안에 있으면 충돌~
+			//모서리 처리 각 점(4개) 위치에서 radius거리 안에 있으면 충돌~
 			else
 			{
-
+				double len;
+				for (int i = 0; i < VERTEXNUM; i++)	
+				{
+					len = sqrt(pow((obj.GetVertex()[i].x - realPos.x), 2) + pow((obj.GetVertex()[i].y - realPos.y), 2));
+					if (radius >= len) { isCollision = true; }
+					if (isCollision && !isOverlapCollision) 
+					{
+						isOverlapCollision = true;
+						dirVec.x *= -1; dirVec.y *= -1; 
+						break; 
+					}
+				}
 			}
 		}
 			break;
 	}
+
+	if (isCollision) obj.OnCollision(obj);
+	return isCollision;
 }
 
 void Ball::initState(Object& plate)
@@ -132,16 +163,7 @@ void Ball::Reflection(Object& obj)
 {
 	//realPos.y = obj.GetCenter().y - obj.GetHeight() / 2 - radius;
 
-	if (obj.GetTag() == ObjectTag::PLATE)	dirVec = obj.GetNomal();
-	else if(obj.GetTag() == ObjectTag::BREAK)
-	{
-		if (realPos.x + radius > obj.GetCenter().x + obj.GetWidth() / 2)			dirVec.x *= -1;
-		else if (realPos.x - radius < obj.GetCenter().x - obj.GetWidth() / 2)		dirVec.x *= -1;
-		else if (realPos.y + radius > obj.GetHeight())								dirVec.y *= -1;
-		else if (realPos.y - radius < 0)											dirVec.y *= -1;
-		obj.OnCollision(obj);
-	}
-
+	obj.OnCollision(obj);
 }
 
 
